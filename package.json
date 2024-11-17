@@ -1,0 +1,19 @@
+{
+	"name": "reefscape-server",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"build": "tsc",
+		"start": "node build/app.js",
+		"watch": "tsc --watch",
+		"newkeys": "openssl req -newkey rsa:2048 -nodes -keyout server-key.pem -x509 -out server-cert.pem"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"devDependencies": {
+		"@types/node": "^22.9.0",
+		"typescript": "^5.6.3"
+	}
+}
