@@ -9,7 +9,7 @@ npm install
 2. Generate a certificate and private key pair
 
 ```bash
-openssl req -newkey rsa:2048 -nodes -keyout server-key.pem -x509 -out server-cert.pem
+npm run newkeys
 ```
 
 Move `server-cert.pem` to the corresponding [reefscape-app](https://github.com/benceruleanlu/reefscape-app) in `assets/`. 
