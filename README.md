@@ -12,11 +12,10 @@ npm install
 npm run newkeys
 ```
 
-Move `server-cert.pem` to the corresponding [reefscape-app](https://github.com/benceruleanlu/reefscape-app) in `assets/`. 
+Move `server-cert.pem` to the corresponding [reefscape-app](https://github.com/benceruleanlu/reefscape-app) in `assets/`.
 
 3. Start the server
 
 ```bash
 npm start
 ```
-
