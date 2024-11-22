@@ -36,6 +36,12 @@ function getLocalIP() {
 }
 
 const server = http.createServer((req, res) => {
+  if (req.method === "GET" && req.url === "/ping") {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("pong");
+    return;
+  }
+
   let contentraw = "";
 
   req.on("data", (chunk) => {
@@ -51,6 +57,8 @@ const server = http.createServer((req, res) => {
       res.end(encrypt(data, content.key));
     } catch (error: any) {
       console.log(error);
+      res.writeHead(500, { "Content-Type": "text/plain" });
+      res.end("Internal Server Error");
     }
   });
 });
