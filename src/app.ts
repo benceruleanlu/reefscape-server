@@ -1,4 +1,4 @@
-import * as http from 'http';
+import { WebSocketServer } from 'ws';
 import * as os from 'os';
 
 function getLocalIP() {
@@ -15,12 +15,17 @@ function getLocalIP() {
 	return 'No local IP found';
 }
 
-const server = http.createServer((req, res) => {
-	res.writeHead(200, { 'Content-Type': 'text/plain' });
-	res.end('Absolute Robotics reefscape app HTTP Server');
+const PORT = 4308;
+const server = new WebSocketServer({ port: PORT });
+console.log(`Server on ws://${getLocalIP()}:${PORT}`);
+
+server.on('connection', function connection(ws) {
+  ws.on('error', console.error);
+
+  ws.on('message', function message(data) {
+    console.log('received: %s', data);
+  });
+
+  ws.send('something');
 });
 
-const PORT = 3000;
-server.listen(PORT, '0.0.0.0', () => {
-	console.log(`Server running at http://${getLocalIP()}:${PORT}`);
-});
