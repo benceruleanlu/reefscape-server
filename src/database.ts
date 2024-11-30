@@ -3,10 +3,14 @@ import { open, Database, Statement } from 'sqlite'
 
 let db: Database;
 let insertStmt: Statement<sqlite.Statement>;
+let changeStmt: Statement<sqlite.Statement>;
+
 export async function init() {
   db = await open({ filename: "databse.db", driver: sqlite.Database });
   await db.exec("CREATE TABLE IF NOT EXISTS scouters (student_number INTEGER PRIMARY KEY, name TEXT)");
+
   insertStmt = await db.prepare('INSERT INTO scouters (student_number, name) VALUES (?, ?)');
+  changeStmt = await db.prepare('');
 }
 
 export async function insertScouter(studentNumber: number, name: string) {
