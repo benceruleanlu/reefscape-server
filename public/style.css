@@ -1,0 +1,23 @@
+body {
+  background-color: black;
+  color: white;
+  font-family: "sans-serif";
+}
+
+li {
+  list-style-type: none;
+  margin-bottom: 1em;
+}
+
+button {
+  margin-left: 1em;
+  color: white;
+}
+
+.btn-accept {
+  background-color: green;
+}
+
+.btn-reject {
+  background-color: red;
+}

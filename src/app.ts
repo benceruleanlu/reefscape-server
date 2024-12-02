@@ -18,9 +18,10 @@ const scouters: Map<number, any> = new Map<number, any>();
 
 const PORT = 4308;
 const server = new WebSocketServer({ port: PORT });
-console.log(`Server on ws://${utils.getLocalIP()}:${PORT}`);
+const serverIP = utils.getLocalIP();
+console.log(`Server on ws://${serverIP}:${PORT}`);
 
-admin.init();
+admin.init(serverIP);
 
 server.on('connection', function connection(ws) {
   ws.on('error', console.error);
@@ -28,6 +29,7 @@ server.on('connection', function connection(ws) {
   let studentNumber: number;
   let name: string;
   let whitelisted = false;
+  let rejected = false;
 
   ws.on('message', function (data) {
     try {
@@ -57,7 +59,7 @@ server.on('connection', function connection(ws) {
 
             db.insertScouter(studentNumber, "");
             scouters.set(studentNumber, { student_number: studentNumber, name: "" });
-          }, function () { ws.send("Rejected!"); ws.close(); });
+          }, function () { ws.send("Rejected!"); ws.close(); rejected = true; });
         }
       } 
       else if (msg.action === "name-change") {
@@ -75,7 +77,7 @@ server.on('connection', function connection(ws) {
 
   ws.on('close', function () { 
     if (whitelisted) { console.log(`Scouter ${studentNumber} (${name}) disconnected.`) }
-    else {
+    else if (!rejected) {
       admin.deleteFromQueue(studentNumber);
     }
   });
